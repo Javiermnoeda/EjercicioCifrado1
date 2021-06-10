@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.ejerciciocifrado.databinding.ActivityMainBinding
 import java.security.MessageDigest
+import java.util.*
 import javax.crypto.BadPaddingException
 import javax.crypto.Cipher
 import javax.crypto.spec.SecretKeySpec
@@ -26,12 +27,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.botonCifrado.setOnClickListener {
-            val textoCifrado = cifrar(""+binding.editText.text)
+            val textoCifrado = cifrar(binding.editText.text.toString())
             binding.textviewCrifrado.text=textoCifrado
         }
 
         binding.botonDescifrado.setOnClickListener {
-            val textoDescifrado = descifrar(""+binding.textviewCrifrado.text)
+            val textoDescifrado = descifrar(binding.textviewCrifrado.text.toString())
             binding.textviewDescifrado.text=textoDescifrado
         }
     }
@@ -40,14 +41,16 @@ class MainActivity : AppCompatActivity() {
 private fun cifrar(textoParaCifrar : String) : String {
     val cipher = Cipher.getInstance(MainActivity.TIPO_DE_CIFRADO)
     cipher.init(Cipher.ENCRYPT_MODE, getKey(MainActivity.LLAVE_EN_STRING))
-    return textoParaCifrar
+    val textoCifrado = cipher.doFinal(textoParaCifrar.toByteArray(Charsets.UTF_8))
+    return String(textoCifrado)
 }
 
 @Throws(BadPaddingException::class)
 private fun descifrar(textoCifrado : String) : String{
     val cipher = Cipher.getInstance(MainActivity.TIPO_DE_CIFRADO)
     cipher.init(Cipher.DECRYPT_MODE, getKey(MainActivity.LLAVE_EN_STRING))
-    return textoCifrado
+    val textoDescifrado = String(cipher.doFinal(Base64.getDecoder().decode(textoCifrado)))
+    return textoDescifrado
 }
 
 private fun getKey(llaveEnString: String): SecretKeySpec {
