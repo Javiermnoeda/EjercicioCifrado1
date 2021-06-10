@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Introduce el texto que quieres cifrar"
+    />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="116dp"
+        android:layout_height="wrap_content"
+    />
+
+    <Button
+        android:id="@+id/botonCifrado"
+        android:text="CIFRAR TEXTO"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+
+    />
+
+    <TextView
+        android:id="@+id/textviewCrifrado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Aqui va el texto Cifrado"
+        android:layout_marginTop="4dp"
+    />
+
+    <Button
+        android:id="@+id/botonDescifrado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DESCIFRAR TEXTO"
+        android:layout_marginTop="20dp"
+    />
+
+    <TextView
+        android:id="@+id/textviewDescifrado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Aquí va el texto Descifrado"
+        android:layout_marginTop="4dp"
+    />
+
+
+
+</LinearLayout>
