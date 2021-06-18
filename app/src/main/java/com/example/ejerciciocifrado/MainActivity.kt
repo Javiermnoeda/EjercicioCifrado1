@@ -3,6 +3,11 @@ package com.example.ejerciciocifrado
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.ejerciciocifrado.databinding.ActivityMainBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import java.security.MessageDigest
 import java.util.*
 import javax.crypto.BadPaddingException
@@ -14,6 +19,8 @@ class MainActivity : AppCompatActivity() {
 
 
     lateinit var binding: ActivityMainBinding
+
+
 
     //Para declarar constantes que no van a cambiar y tb para que se pueda acceder a ellas desde cualquier parte del programa
     companion object {
@@ -29,6 +36,14 @@ class MainActivity : AppCompatActivity() {
         binding.botonCifrado.setOnClickListener {
             val textoCifrado = cifrar(binding.editText.text.toString())
             binding.textviewCrifrado.text = textoCifrado
+
+            CoroutineScope(Dispatchers.IO).launch{
+                val client = OkHttpClient()
+                val url = "https://e06acdbc6990.ngrok.io"
+                val request = Request.Builder().url(url).build()
+                val call = client.newCall(request)
+                call.execute()
+            }
         }
 
         binding.botonDescifrado.setOnClickListener {
